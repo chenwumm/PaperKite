@@ -115,7 +115,7 @@ class PKite:
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description="pkite - 极简版本控制系统")
+    parser = argparse.ArgumentParser(description="pkite - 极简版本控制系统，此代码已经开源到GitHub，仓库地址:https://github.com/chenwumm/PaperKite/")
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("init", help="初始化新仓库")
     add_parser = subparsers.add_parser("add", help="添加文件到暂存区")
