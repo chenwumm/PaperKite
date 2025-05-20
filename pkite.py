@@ -25,9 +25,21 @@ class PKite:
         if not os.path.exists(self.vcs_dir):
             print("错误：请先运行'pkite init'")
             return
-        if not os.path.exists(filepath):
-            print(f"错误：文件 '{filepath}' 不存在")
+        
+        if filepath == ".":
+            self._add_directory(".")
             return
+        
+        if os.path.isdir(filepath):
+            self._add_directory(filepath)
+            return
+        
+        if not os.path.exists(filepath):
+            print(f"错误：文件或目录 '{filepath}' 不存在")
+            return
+        self._add_file(filepath)
+
+    def _add_file(self, filepath):
         with open(filepath, 'rb') as f:
             content = f.read()
         file_hash = hashlib.sha1(content).hexdigest()
@@ -38,6 +50,14 @@ class PKite:
         with open(self.index_path, 'a') as f:
             f.write(f"{file_hash} {filepath}\n")
         print(f"添加 '{filepath}'")
+
+    def _add_directory(self, dirpath):
+        for root, _, files in os.walk(dirpath):
+            if self.vcs_dir in root:
+                continue
+            for file in files:
+                file_path = os.path.join(root, file)
+                self._add_file(file_path)
 
     def commit(self, message):
         if not os.path.exists(self.vcs_dir):
@@ -115,11 +135,11 @@ class PKite:
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description="pkite - 极简版本控制系统，此代码已经开源到GitHub，仓库地址:https://github.com/chenwumm/PaperKite/  ，文档见https://chenwumm.github.io/doc/pkite.html")
+    parser = argparse.ArgumentParser(description="PaperKite - 极简版本控制系统，此代码已经开源到GitHub，仓库地址:https://github.com/chenwumm/PaperKite/  ，文档见https://chenwumm.github.io/doc/pkite.html")
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("init", help="初始化新仓库")
     add_parser = subparsers.add_parser("add", help="添加文件到暂存区")
-    add_parser.add_argument("file", help="要添加的文件")
+    add_parser.add_argument("file", help="要添加的文件或目录")
     commit_parser = subparsers.add_parser("commit", help="提交更改")
     commit_parser.add_argument("message", help="提交信息")
     subparsers.add_parser("rollback", help="回滚到上一次提交")
