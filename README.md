@@ -20,8 +20,8 @@ python ~/PaperKite/pkite.py init
 ```bash
 python ~/PaperKite/pkite.py 要添加的文件
 ```
-好像还不支持添加本目录(add .)
-截至5月20日，PaperKite已经支持添加本目录(add .)。
+好像还不支持添加本目录(add .)  
+截至5月20日，PaperKite已经支持添加本目录(add .)。  
 提交:
 ```bash
 python ~/PaperKite/pkite.py commit "提交信息"
