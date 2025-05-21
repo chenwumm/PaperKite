@@ -1,3 +1,5 @@
+旧版文档:
+---
 # PaperKite使用文档
 PaperKite(简称PKite)是一个极简代码版本控制系统，他大约只有160行代码。接下来介绍他如何使用。
 ## 一 克隆PKite仓库
@@ -32,3 +34,5 @@ python ~/PaperKite/pkite.py rollback
 ```
 ## 尾巴
 这个其实是我开源的第一个小项目啦。希望多点follow和star。
+---
+新版文档请见[https://chenwumm.github.io/doc/pkite.html](https://chenwumm.github.io/doc/pkite.html)
